@@ -1,15 +1,15 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\email
+ * @package    open20\amos\email
  * @category   CategoryName
  */
 
-use lispa\amos\emailmanager\models\EmailSpool;
+use open20\amos\emailmanager\models\EmailSpool;
 use yii\db\Migration;
 
 class m170220_161458_add_viewparams extends Migration

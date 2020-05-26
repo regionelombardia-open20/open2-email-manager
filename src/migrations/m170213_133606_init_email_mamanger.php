@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\email
+ * @package    open20\amos\email
  * @category   CategoryName
  */
 
@@ -16,29 +16,25 @@ class m170213_133606_init_email_mamanger extends Migration
 {
     const TABLE = '{{%email_template}}';
     const TABLE_SPOOL = '{{%email_spool}}';
-    
+
     public function safeUp()
     {
-        if ($this->db->schema->getTableSchema(self::TABLE, true) === null)
-        {
+        if ($this->db->schema->getTableSchema(self::TABLE, true) === null) {
             $this->createTable(self::TABLE, [
                 'id' => Schema::TYPE_PK,
                 'name' => Schema::TYPE_STRING . "(255) DEFAULT NULL",
                 'subject' => Schema::TYPE_STRING . "(255) DEFAULT NULL",
-                'heading' =>Schema::TYPE_STRING . "(255) DEFAULT NULL",
+                'heading' => Schema::TYPE_STRING . "(255) DEFAULT NULL",
                 'message' => Schema::TYPE_TEXT . " DEFAULT NULL",
                 'created_at' => Schema::TYPE_INTEGER . " NULL DEFAULT NULL ",
                 'updated_at' => Schema::TYPE_INTEGER . " NULL DEFAULT NULL ",
             ], $this->db->driverName === 'mysql' ? 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB AUTO_INCREMENT=1' : null);
-           
-        }
-        else
-        {
+
+        } else {
             echo "Nessuna creazione eseguita in quanto la tabella esiste gia'";
         }
-        
-        if ($this->db->schema->getTableSchema(self::TABLE_SPOOL, true) === null)
-        {
+
+        if ($this->db->schema->getTableSchema(self::TABLE_SPOOL, true) === null) {
             $this->createTable(self::TABLE_SPOOL, [
                 'id' => Schema::TYPE_PK,
                 'transport' => Schema::TYPE_STRING . "(255) DEFAULT NULL",
@@ -64,35 +60,27 @@ class m170213_133606_init_email_mamanger extends Migration
             $this->createIndex("from_address", self::TABLE_SPOOL, ["from_address"]);
             $this->createIndex("subject", self::TABLE_SPOOL, ["subject"]);
             $this->createIndex("sent", self::TABLE_SPOOL, ["sent"]);
-        }
-        else
-        {
+        } else {
             echo "Nessuna creazione eseguita in quanto la tabella esiste gia'";
         }
-        
+
         return true;
     }
 
     public function safeDown()
     {
-        if ($this->db->schema->getTableSchema(self::TABLE, true) !== null)
-        {
+        if ($this->db->schema->getTableSchema(self::TABLE, true) !== null) {
             $this->dropTable(self::TABLE);
-        }
-        else
-        {
+        } else {
             echo "Nessuna cancellazione eseguita in quanto la tabella non esiste";
         }
-        
-        if ($this->db->schema->getTableSchema(self::TABLE_SPOOL, true) !== null)
-        {
+
+        if ($this->db->schema->getTableSchema(self::TABLE_SPOOL, true) !== null) {
             $this->dropTable(self::TABLE_SPOOL);
-        }
-        else
-        {
+        } else {
             echo "Nessuna cancellazione eseguita in quanto la tabella non esiste";
         }
-        
+
         return true;
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\email
+ * @package    open20\amos\email
  * @category   CategoryName
  */
 
@@ -20,7 +20,11 @@
                         <tbody>
                         <tr>
                             <td style="margin-bottom: 10px;background-color: #297A38;height:15px;"></td>
-                            <td style="margin-bottom: 10px;background-color: #297A38;height:15px;"></td><td style="margin-bottom: 10px;background-color: #297A38;height:15px;"></td></tr><tr><td style="height:10px;"></td>
+                            <td style="margin-bottom: 10px;background-color: #297A38;height:15px;"></td>
+                            <td style="margin-bottom: 10px;background-color: #297A38;height:15px;"></td>
+                        </tr>
+                        <tr>
+                            <td style="height:10px;"></td>
                         </tr>
                         <tr>
                             <td>
@@ -33,12 +37,16 @@
                         </tr>
                         </tbody>
                     </table>
-                    <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color:white;color:#297A38;border-bottom:0;font-family:Arial;font-weight:bold;line-height:100%;vertical-align:middle" bgcolor="white">
+                    <table border="0" cellpadding="0" cellspacing="0" width="600"
+                           style="background-color:white;color:#297A38;border-bottom:0;font-family:Arial;font-weight:bold;line-height:100%;vertical-align:middle"
+                           bgcolor="white">
                         <tbody>
                         <?php if ($heading) { ?>
                             <tr>
                                 <td align="center" valign="top">
-                                    <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color:white;color:#ffffff;border-bottom:0;font-family:Arial;font-weight:bold;line-height:100%;vertical-align:middle" bgcolor="white">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="600"
+                                           style="background-color:white;color:#ffffff;border-bottom:0;font-family:Arial;font-weight:bold;line-height:100%;vertical-align:middle"
+                                           bgcolor="white">
                                         <tbody>
                                         <tr>
                                             <td style="width:30px;"></td>
@@ -47,9 +55,12 @@
                                             </td>
                                             <td style="width:30px;"></td>
                                         </tr>
-                                        <tr><td id="m_-9137424053610890079down-heading" style="background-color:lightgrey;height:10px"> </td>
-                                            <td id="m_-9137424053610890079down-heading" style="background-color:lightgrey;height:10px"> </td>
-                                            <td style="background-color:lightgrey;height:10px"> </td>
+                                        <tr>
+                                            <td id="m_-9137424053610890079down-heading"
+                                                style="background-color:lightgrey;height:10px"></td>
+                                            <td id="m_-9137424053610890079down-heading"
+                                                style="background-color:lightgrey;height:10px"></td>
+                                            <td style="background-color:lightgrey;height:10px"></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -61,7 +72,8 @@
                                 <table border="0" cellpadding="0" cellspacing="0" width="600">
                                     <tbody>
                                     <tr>
-                                        <td valign="top" style="padding-top: 5px;background-color:white;border-radius:6px!important">
+                                        <td valign="top"
+                                            style="padding-top: 5px;background-color:white;border-radius:6px!important">
                                             <table border="0" cellpadding="20" cellspacing="0" width="100%">
                                                 <tbody>
                                                 <tr>
@@ -74,7 +86,9 @@
                                                 <tr>
                                                     <td valign="top" style="padding-top: 5px;padding-bottom: 5px;">
                                                         <div style="color:green; margin:10px;font-family:Arial;font-size:12px;line-height:150%;text-align:left">
-                                                            <a href="#" style="font-weight: bold;font-size:20px;color:green;">Clicca qui per accedere alla piattaforma e pubblicarlo</a>
+                                                            <a href="#"
+                                                               style="font-weight: bold;font-size:20px;color:green;">Clicca
+                                                                qui per accedere alla piattaforma e pubblicarlo</a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -88,12 +102,19 @@
                         </tr>
                         </tbody>
                     </table>
-                    <table style="margin:10px;padding:10px;background-color:white" border="0" cellpadding="0" cellspacing="0" width="600" align="center">
+                    <table style="margin:10px;padding:10px;background-color:white" border="0" cellpadding="0"
+                           cellspacing="0" width="600" align="center">
                         <tr>
                             <td>
                                 <div style="color:black; background-color:lightgrey; padding:10px;margin:5px; font-family:Arial;font-size:12px;line-height:150%;text-align:left">
                                     <strong>Lo staff di open innovation regione lombardia<strong/>
-                                        <p style="font-weight: normal">è un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum è considerato il testo segnaposto standard sin dal sedicesimo secolo, quando un anonimo tipografo prese una cassetta di caratteri e li assemblò per preparare un testo campione. È sopravvissuto non solo a più di cinque secoli, ma anche al passaggio alla videoimpaginazione, pervenendoci sostanzialmente inalterato. Fu r</p>
+                                        <p style="font-weight: normal">è un testo segnaposto utilizzato nel settore
+                                            della tipografia e della stampa. Lorem Ipsum è considerato il testo
+                                            segnaposto standard sin dal sedicesimo secolo, quando un anonimo tipografo
+                                            prese una cassetta di caratteri e li assemblò per preparare un testo
+                                            campione. È sopravvissuto non solo a più di cinque secoli, ma anche al
+                                            passaggio alla videoimpaginazione, pervenendoci sostanzialmente inalterato.
+                                            Fu r</p>
                                 </div>
                             </td>
                         </tr>

@@ -1,30 +1,31 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\email
+ * @package    open20\amos\email
  * @category   CategoryName
  */
 
-namespace lispa\amos\emailmanager\controllers;
+namespace open20\amos\emailmanager\controllers;
 
 use Yii;
 use yii\helpers\Url;
-use lispa\amos\dashboard\controllers\base\DashboardController;
+use open20\amos\dashboard\controllers\base\DashboardController;
 
 
 class DefaultController extends DashboardController
-{   
+{
     public $modelName;
     public $layout = 'dashboard_interna';
 
     /**
      * @inheritdoc
      */
-    public function init() {
+    public function init()
+    {
 
         parent::init();
         $this->setUpLayout();
@@ -37,7 +38,6 @@ class DefaultController extends DashboardController
     public function actionIndex($layout = null)
     {
         Url::remember();
-        
         return $this->render('index');
     }
 

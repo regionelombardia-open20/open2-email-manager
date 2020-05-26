@@ -1,23 +1,23 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\email
+ * @package    open20\amos\email
  * @category   CategoryName
  */
 
-namespace lispa\amos\emailmanager\models\search;
+namespace open20\amos\emailmanager\models\search;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use lispa\amos\emailmanager\models\EmailSpool;
+use open20\amos\emailmanager\models\EmailSpool;
 
 /**
- * EmailSpoolSearch represents the model behind the search form about `lispa\amos\emailmanager\models\EmailSpool`.
+ * EmailSpoolSearch represents the model behind the search form about `open20\amos\emailmanager\models\EmailSpool`.
  */
 class EmailSpoolSearch extends EmailSpool
 {
@@ -58,10 +58,10 @@ class EmailSpoolSearch extends EmailSpool
             'query' => $query,
         ]);
         $dataProvider->setSort([
-                'defaultOrder' => [
-                    'created_at' => SORT_DESC
-                ]
-            ]);
+            'defaultOrder' => [
+                'created_at' => SORT_DESC
+            ]
+        ]);
 
         $this->load($params);
 

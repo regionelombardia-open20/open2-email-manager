@@ -1,14 +1,15 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\email
+ * @package    open20\amos\email
  * @category   CategoryName
  */
 
+use open20\amos\emailmanager\widgets\icons\WidgetIconEmailManager;
 use yii\db\Migration;
 
 class m170220_081455_widget_email_manager extends Migration
@@ -25,9 +26,9 @@ class m170220_081455_widget_email_manager extends Migration
     private function setPermissionConfs()
     {
         $this->perms = array(
-            
+
             array(
-                'name' => \lispa\amos\emailmanager\widgets\icons\WidgetIconEmailManager::className(),
+                'name' => WidgetIconEmailManager::className(),
                 'type' => '2',
                 'description' => 'Permesso di visualizzazione del widget Gestione email',
             )
@@ -51,19 +52,18 @@ class m170220_081455_widget_email_manager extends Migration
             }
         }
 
-        
 
-        $this->batchInsert('{{%auth_item_child}}',['parent', 'child'], [
-            ['ADMIN', \lispa\amos\emailmanager\widgets\icons\WidgetIconEmailManager::className()],
+        $this->batchInsert('{{%auth_item_child}}', ['parent', 'child'], [
+            ['ADMIN', WidgetIconEmailManager::className()],
         ]);
 
         $now = date("Y-m-d H:i:s");
         $module = 'email';
         $status = 1;
         $userId = 1;
-        $this->batchInsert('{{%amos_widgets}}',['classname', 'type', 'module', 'status', 'child_of', 'created_by', 'created_at', 'updated_by', 'updated_at'], [
+        $this->batchInsert('{{%amos_widgets}}', ['classname', 'type', 'module', 'status', 'child_of', 'created_by', 'created_at', 'updated_by', 'updated_at'], [
             [
-                \lispa\amos\emailmanager\widgets\icons\WidgetIconEmailManager::className(),
+                WidgetIconEmailManager::className(),
                 'ICON',
                 $module,
                 $status,
@@ -79,9 +79,9 @@ class m170220_081455_widget_email_manager extends Migration
     /**
      * Metodo privato per la creazione della singola permission nella tabella auth_item
      *
-     * @param string $name          Nome univoco della permission
-     * @param string $type          Tipo della permission (0, 1, 2)
-     * @param string $description   Descrizione della permission
+     * @param string $name Nome univoco della permission
+     * @param string $type Tipo della permission (0, 1, 2)
+     * @param string $description Descrizione della permission
      */
     private function createNewPermission($name, $type, $description)
     {
@@ -113,7 +113,7 @@ class m170220_081455_widget_email_manager extends Migration
     /**
      * Metodo privato per l'eliminazione di una permission dalla tabella auth_item
      *
-     * @param string $name          Nome univoco della permission
+     * @param string $name Nome univoco della permission
      */
     private function deletePermission($name)
     {

@@ -1,26 +1,31 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\email
+ * @package    open20\amos\email
  * @category   CategoryName
  */
 
-namespace lispa\amos\emailmanager\interfaces;
+namespace open20\amos\emailmanager\interfaces;
 
-interface ManagerInterface {
+interface ManagerInterface
+{
     public function setTemplateType($templateType);
+
     public function getTemplateType();
-    
+
     public function setTemplatePath($path);
+
     public function getTemplatePath();
 
     public function setDefaultTemplate($tamplate);
+
     public function getDefaultTemplate();
-    
+
     public function setDefaultLayout($layout);
+
     public function getDefaultLayout();
 }

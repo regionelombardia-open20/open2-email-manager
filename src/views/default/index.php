@@ -1,14 +1,17 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\email
+ * @package    open20\amos\email
  * @category   CategoryName
  */
 
-echo \lispa\amos\dashboard\widgets\DashboardWidget::widget(
-    ['title' => \lispa\amos\emailmanager\AmosEmail::t('amosemail', 'Email manager')]
+use open20\amos\dashboard\widgets\DashboardWidget;
+use open20\amos\emailmanager\AmosEmail;
+
+echo DashboardWidget::widget(
+    ['title' => AmosEmail::t('amosemail', 'Email manager')]
 );

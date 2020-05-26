@@ -1,15 +1,15 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\email
+ * @package    open20\amos\email
  * @category   CategoryName
  */
 
-namespace lispa\amos\emailmanager\commands;
+namespace open20\amos\emailmanager\commands;
 
 use Exception;
 use Yii;
@@ -24,16 +24,12 @@ class EmailSpoolController extends Controller
      */
     public function actionIndex($spoolLimit = 10)
     {
-        try
-        {
+        try {
             $emailManager = Yii::$app->getModule('email');
-            if ($emailManager)
-            {
+            if ($emailManager) {
                 $emailManager->spool($spoolLimit);
             }
-        }
-        catch (Exception $bex)
-        {
+        } catch (Exception $bex) {
             Yii::getLogger()->log($bex->getMessage(), Logger::LEVEL_ERROR);
         }
     }
@@ -43,31 +39,21 @@ class EmailSpoolController extends Controller
      */
     public function actionLoop($loopLimit = 1000, $spoolLimit = 10)
     {
-        try
-        {
+        try {
             $emailManager = Yii::$app->getModule('email');
-            if ($emailManager)
-            {
-                for ($i = 0; $i < $loopLimit; $i++)
-                {
+            if ($emailManager) {
+                for ($i = 0; $i < $loopLimit; $i++) {
                     $done = $emailManager->spool($spoolLimit);
-                    if ($done)
-                    {
-                        for ($i = 0; $i < $done; $i++)
-                        {
+                    if ($done) {
+                        for ($i = 0; $i < $done; $i++) {
                             echo '.';
                         }
-                    }
-                    else
-                    {
+                    } else {
                         break;
                     }
-                    sleep(1);
                 }
             }
-        }
-        catch (Exception $bex)
-        {
+        } catch (Exception $bex) {
             Yii::getLogger()->log($bex->getMessage(), Logger::LEVEL_ERROR);
         }
     }

@@ -1,17 +1,17 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\email
+ * @package    open20\amos\email
  * @category   CategoryName
  */
 
-namespace lispa\amos\emailmanager\models;
+namespace open20\amos\emailmanager\models;
 
-use lispa\amos\emailmanager\AmosEmail;
+use open20\amos\emailmanager\AmosEmail;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
@@ -43,13 +43,13 @@ class EmailTemplate extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => AmosEmail::t('amosemail','ID'),
-            'name' => AmosEmail::t('amosemail','Name'),
-            'subject' => AmosEmail::t('amosemail','Subject'),
-            'heading' => AmosEmail::t('amosemail','Heading'),
-            'message' => AmosEmail::t('amosemail','Message'),
-            'created_at' => AmosEmail::t('amosemail','Created At'),
-            'updated_at' => AmosEmail::t('amosemail','Updated At'),
+            'id' => AmosEmail::t('amosemail', 'ID'),
+            'name' => AmosEmail::t('amosemail', 'Name'),
+            'subject' => AmosEmail::t('amosemail', 'Subject'),
+            'heading' => AmosEmail::t('amosemail', 'Heading'),
+            'message' => AmosEmail::t('amosemail', 'Message'),
+            'created_at' => AmosEmail::t('amosemail', 'Created At'),
+            'updated_at' => AmosEmail::t('amosemail', 'Updated At'),
         ];
     }
 
@@ -68,6 +68,6 @@ class EmailTemplate extends ActiveRecord
      */
     public function __toString()
     {
-        return ''. $this->id;
+        return '' . $this->id;
     }
 }

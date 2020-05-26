@@ -1,23 +1,23 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\email
+ * @package    open20\amos\email
  * @category   CategoryName
  */
 
-use lispa\amos\emailmanager\AmosEmail;
-use lispa\amos\core\views\DataProviderView;
-use lispa\amos\core\helpers\Html;
+use open20\amos\emailmanager\AmosEmail;
+use open20\amos\core\views\DataProviderView;
+use open20\amos\core\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\EmailSpoolSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = AmosEmail::t('amosemail','Email Spools');
+$this->title = AmosEmail::t('amosemail', 'Email Spools');
 $this->params['breadcrumbs'][] = ['label' => AmosEmail::t('amosemail', 'Email Manager'), 'url' => ['/email']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -62,11 +62,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 // 'updated_at',
 
-                ['class' => 'lispa\amos\core\views\grid\ActionColumn',
+                ['class' => 'open20\amos\core\views\grid\ActionColumn',
                     'headerOptions' => ['style' => 'width:100px'],
                 ],
             ],
         ],
-        
+
     ]); ?>
 </div>

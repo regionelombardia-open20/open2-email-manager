@@ -1,22 +1,22 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\email
+ * @package    open20\amos\email
  * @category   CategoryName
  */
 
-namespace lispa\amos\emailmanager\controllers;
+namespace open20\amos\emailmanager\controllers;
 
-use lispa\amos\core\controllers\CrudController;
-use lispa\amos\core\helpers\Html;
-use lispa\amos\core\icons\AmosIcons;
-use lispa\amos\emailmanager\AmosEmail;
-use lispa\amos\emailmanager\models\EmailTemplate;
-use lispa\amos\emailmanager\models\search\EmailTemplateSearch;
+use open20\amos\core\controllers\CrudController;
+use open20\amos\core\helpers\Html;
+use open20\amos\core\icons\AmosIcons;
+use open20\amos\emailmanager\AmosEmail;
+use open20\amos\emailmanager\models\EmailTemplate;
+use open20\amos\emailmanager\models\search\EmailTemplateSearch;
 use Yii;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
@@ -33,7 +33,8 @@ class EmailTemplateController extends CrudController
     /**
      * @inheritdoc
      */
-    public function init(){
+    public function init()
+    {
         $this->setModelObj(new EmailTemplate());
         $this->setModelSearch(new EmailTemplateSearch());
         $this->setAvailableViews([
@@ -87,7 +88,7 @@ class EmailTemplateController extends CrudController
     public function actionIndex($layout = null)
     {
         $this->setUpLayout('list');
-        
+
         Url::remember();
         $this->setDataProvider($this->getModelSearch()->search(Yii::$app->request->getQueryParams()));
         return parent::actionIndex();
@@ -175,7 +176,7 @@ class EmailTemplateController extends CrudController
         $module = \Yii::$app->getModule('layout');
         if (empty($module)) {
             if (strpos($this->layout, '@') === false) {
-                $this->layout = '@vendor/lispa/amos-core/views/layouts/'.(!empty($layout) ? $layout : $this->layout);
+                $this->layout = '@vendor/open20/amos-core/views/layouts/' . (!empty($layout) ? $layout : $this->layout);
             }
             return true;
         }

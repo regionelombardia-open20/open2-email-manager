@@ -1,19 +1,19 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\email
+ * @package    open20\amos\email
  * @category   CategoryName
  */
 
-use lispa\amos\core\helpers\Html;
-use lispa\amos\emailmanager\AmosEmail;
-use lispa\amos\emailmanager\models\EmailSpool;
-use lispa\amos\emailmanager\assets\AmosMailAsset;
-use lispa\amos\core\icons\AmosIcons;
+use open20\amos\core\helpers\Html;
+use open20\amos\emailmanager\AmosEmail;
+use open20\amos\emailmanager\models\EmailSpool;
+use open20\amos\emailmanager\assets\AmosMailAsset;
+use open20\amos\core\icons\AmosIcons;
 use yii\widgets\DetailView;
 
 AmosMailAsset::register($this);
@@ -82,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </dl>
                         <dl>
                             <dt><?= $model->getAttributeLabel('sent date'); ?></dt>
-                            <dd><?= date("d-M-Y H:i:s",  $model->sent); ?></dd>
+                            <dd><?= date("d-M-Y H:i:s", $model->sent); ?></dd>
                         </dl>
                     </section>
                 </div>

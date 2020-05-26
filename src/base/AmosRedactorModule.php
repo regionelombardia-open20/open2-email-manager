@@ -1,26 +1,27 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\email
+ * @package    open20\amos\email
  * @category   CategoryName
  */
 
-namespace lispa\amos\emailmanager\base;
+namespace open20\amos\emailmanager\base;
 
+use yii\base\Exception;
 use yii\redactor\RedactorModule;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\helpers\FileHelper;
 use yii\helpers\Url;
 
-class AmosRedactorModule extends RedactorModule 
+class AmosRedactorModule extends RedactorModule
 {
-    
-    
+
+
     public function getOwnerPath()
     {
         return Yii::$app->user->isGuest ? 'guest' : Yii::$app->user->id;
@@ -29,7 +30,7 @@ class AmosRedactorModule extends RedactorModule
     /**
      * @return string
      * @throws InvalidConfigException
-     * @throws \yii\base\Exception
+     * @throws Exception
      */
     public function getSaveDir()
     {
@@ -51,8 +52,8 @@ class AmosRedactorModule extends RedactorModule
     {
         return $this->getSaveDir() . DIRECTORY_SEPARATOR . $fileName;
     }
-    
-    
+
+
     /**
      * @param $fileName
      * @return string

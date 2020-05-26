@@ -1,16 +1,16 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\email
+ * @package    open20\amos\email
  * @category   CategoryName
  */
 
-use lispa\amos\emailmanager\models\EmailSpool;
-use lispa\amos\core\helpers\Html;
+use open20\amos\emailmanager\models\EmailSpool;
+use open20\amos\core\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\alert\Alert;
 use kartik\datecontrol\DateControl;
@@ -28,22 +28,22 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'id')->hiddenInput()->label(false) ?>
 
-     <div class="row">
+    <div class="row">
         <div class="col-lg-6 col-sm-6">
             <?= $form->field($model, 'transport')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-lg-6 col-sm-6">
             <?= $form->field($model, 'template')->textInput(['maxlength' => true]) ?>
         </div>
-     </div>
-     <div class="row">
-         <div class="col-lg-6 col-sm-6">
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-sm-6">
             <?= $form->field($model, 'priority')->textInput() ?>
-         </div>
-         <div class="col-lg-6 col-sm-6">
+        </div>
+        <div class="col-lg-6 col-sm-6">
             <?= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
-         </div>
-     </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-6 col-sm-6">
             <?= $form->field($model, 'model_name')->textInput(['maxlength' => true]) ?>
@@ -72,11 +72,11 @@ use yii\helpers\ArrayHelper;
     </div>
     <div class="row">
         <div class="col-lg-6 col-sm-6">
-        <?= $form->field($model, 'sent')->widget(DateControl::className(), [
-                    'type' => DateControl::FORMAT_DATETIME,
-                    'saveFormat' =>  'php:U',
-                    'displayFormat' => 'dd-MM-yyyy HH:mm:ss', 
-                ]) ?>
+            <?= $form->field($model, 'sent')->widget(DateControl::className(), [
+                'type' => DateControl::FORMAT_DATETIME,
+                'saveFormat' => 'php:U',
+                'displayFormat' => 'dd-MM-yyyy HH:mm:ss',
+            ]) ?>
         </div>
     </div>
     <div class="col-xs-12 note_asterisk nop">

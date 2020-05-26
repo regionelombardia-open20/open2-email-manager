@@ -1,17 +1,18 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\email
+ * @package    open20\amos\email
  * @category   CategoryName
  */
 
-use lispa\amos\emailmanager\AmosEmail;
-use lispa\amos\emailmanager\models\EmailTemplate;
-use lispa\amos\core\helpers\Html;
+use open20\amos\emailmanager\AmosEmail;
+use open20\amos\emailmanager\models\EmailTemplate;
+use open20\amos\core\helpers\Html;
+use yii\redactor\widgets\Redactor;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -40,19 +41,19 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="row">
         <div class="col-xs-12">
-        <?= 
-              $form->field($model, 'message')->widget(\yii\redactor\widgets\Redactor::className(), [
-                    'clientOptions' => [
-                        //'placeholder' => AmosEmail::t('amosemail','SOMETHING'),
-                        'placeholder' => '',
-                        'lang' => 'it',
-                         'minHeight' => 300,
-                        'buttons' => ['html', 'formatting', 'bold', 'italic', 'deleted', 'unorderedlist', 'orderedlist','outdent', 'indent', 'image', 'link', 'alignment', 'horizontalrule'],
-                        'plugins' => ['indent','clips', 'fontcolor','imagemanager', 'fontsize','table', 'lang', 'paragraphize']
-                    ]
-                ])    
+            <?=
+            $form->field($model, 'message')->widget(Redactor::className(), [
+                'clientOptions' => [
+                    //'placeholder' => AmosEmail::t('amosemail','SOMETHING'),
+                    'placeholder' => '',
+                    'lang' => 'it',
+                    'minHeight' => 300,
+                    'buttons' => ['html', 'formatting', 'bold', 'italic', 'deleted', 'unorderedlist', 'orderedlist', 'outdent', 'indent', 'image', 'link', 'alignment', 'horizontalrule'],
+                    'plugins' => ['indent', 'clips', 'fontcolor', 'imagemanager', 'fontsize', 'table', 'lang', 'paragraphize']
+                ]
+            ])
 
-                ?>
+            ?>
         </div>
     </div>
     <div class="col-xs-12 note_asterisk nop">

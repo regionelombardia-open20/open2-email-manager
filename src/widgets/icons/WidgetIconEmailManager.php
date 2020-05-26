@@ -1,54 +1,68 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\email
+ * @package    open20\amos\email
  * @category   CategoryName
  */
 
-namespace lispa\amos\emailmanager\widgets\icons;
+namespace open20\amos\emailmanager\widgets\icons;
 
-use lispa\amos\core\widget\WidgetIcon;
-use lispa\amos\emailmanager\AmosEmail;
+use open20\amos\core\widget\WidgetIcon;
+use open20\amos\emailmanager\AmosEmail;
 use Yii;
 use yii\helpers\ArrayHelper;
 
 class WidgetIconEmailManager extends WidgetIcon
 {
 
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
         parent::init();
 
         $this->setLabel(AmosEmail::tHtml('amosemail', 'Email'));
         $this->setDescription(AmosEmail::t('amosemail', 'Email Manager Widget'));
-
         $this->setIcon('envelope-o');
-        //$this->setIconFramework();
-
-        $this->setUrl(Yii::$app->urlManager->createUrl(['email/']));
+        $this->setUrl(Yii::$app->urlManager->createUrl(['/email']));
         $this->setCode('EMAIL_MANAGER_MODULE');
         $this->setModuleName('email');
         $this->setNamespace(__CLASS__);
-        $this->setClassSpan(ArrayHelper::merge($this->getClassSpan(), [
-            'bk-backgroundIcon',
-            'color-darkGrey'
-        ]));
 
+        $this->setClassSpan(
+            ArrayHelper::merge(
+                $this->getClassSpan(),
+                [
+                    'bk-backgroundIcon',
+                    'color-darkGrey'
+                ]
+            )
+        );
     }
 
+    /**
+     * Aggiunge all'oggetto container tutti i widgets recuperati dal controller del modulo
+     *
+     * @return type
+     */
     public function getOptions()
     {
-        $options = parent::getOptions();
-
-        //aggiunge all'oggetto container tutti i widgets recuperati dal controller del modulo
-        return ArrayHelper::merge($options, ["children" => $this->getWidgetsIcon()]);
+        return ArrayHelper::merge(
+            parent::getOptions(),
+            ['children' => $this->getWidgetsIcon()]
+        );
     }
 
-    /* TEMPORANEA */
+    /**
+     * TEMPORANEA
+     *
+     * @return type
+     */
     public function getWidgetsIcon()
     {
         $widgets = [];
@@ -67,4 +81,5 @@ class WidgetIconEmailManager extends WidgetIcon
 
         return $widgets;
     }
+
 }

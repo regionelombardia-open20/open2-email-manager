@@ -1,21 +1,22 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\email
+ * @package    open20\amos\email
  * @category   CategoryName
  */
 
 return [
-    'params' => [          
+    'params' => [
 
         //active the search 
         'searchParams' => [
-                    'spool' => true,
-                    'template' => true,
-                ]
+            'spool' => true,
+            'template' => true,
+            'email-view' => true,
+        ]
     ]
 ];

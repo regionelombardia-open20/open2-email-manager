@@ -1,17 +1,16 @@
 <?php
-
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\email
+ * @package    open20\amos\email
  * @category   CategoryName
  */
 
-namespace lispa\amos\emailmanager\transports;
+namespace open20\amos\emailmanager\transports;
 
-use lispa\amos\emailmanager\interfaces\TransportInterface;
+use open20\amos\emailmanager\interfaces\TransportInterface;
 use Exception;
 use Yii;
 use yii\base\Component;
@@ -21,47 +20,44 @@ use yii\mail\MailerInterface;
 class YiiMailer extends Component implements TransportInterface
 {
 
-    public function send($from, $to, $subject, $text, $files = [], $bcc = null)
+    public function send($from, $to, $subject, $text, $files = [], $bcc = null, $cc = null, $replyTo = null)
     {
         $ret = '';
-        try
-        {
+        try {
             /** @var MailerInterface $mailer */
             $mailer = \Yii::$app->get('mailer');
 
-            if ($mailer != null)
-            {
+            if ($mailer != null) {
                 $message = $mailer->compose()
-                        ->setFrom($this->parseFrom($from))
-                        ->setTo($to)
-                        ->setSubject($subject)
-                        ->setHtmlBody($text);
+                    ->setFrom($this->parseFrom($from))
+                    ->setTo($to)
+                    ->setSubject($subject)
+                    ->setHtmlBody($text);
 
-                if ($bcc)
-                {
-                    $message->setBcc($bcc);
+                if (is_array($bcc) && count($bcc) == 0) {
+                    $bcc = null;
                 }
 
-                if (count($files) > 0)
-                {
-                    foreach ($files as $file)
-                    {
+                $message->setBcc($bcc);
+                $message->setCc($cc);
+                $message->setReplyTo($replyTo);
+
+                if (count($files) > 0) {
+                    foreach ($files as $file) {
                         //$message->attach($filePath);
-                        $message->attachContent($file->content, ['fileName' => $file->name, 'contentType' => $file->type]);
+                        $message->attachContent($file->content,
+                            ['fileName' => $file->name, 'contentType' => $file->type]);
                     }
                 }
-                try
-                {
+                try {
                     $ret = $message->send();
                 } catch (Exception $ex) {
-                   Yii::getLogger()->log($ex->getMessage(), Logger::LEVEL_ERROR);
+                    Yii::getLogger()->log($ex->getMessage(), Logger::LEVEL_ERROR);
                 }
-                
+
                 $mailer->getTransport()->stop();
             }
-        }
-        catch (Exception $bex)
-        {
+        } catch (Exception $bex) {
             Yii::getLogger()->log($bex->getMessage(), Logger::LEVEL_ERROR);
         }
         return $ret;
@@ -77,8 +73,7 @@ class YiiMailer extends Component implements TransportInterface
     {
         $parts = explode(' ', $from);
 
-        if (count($parts) == 1)
-        {
+        if (count($parts) == 1) {
             return $from;
         }
 
@@ -96,5 +91,4 @@ class YiiMailer extends Component implements TransportInterface
         $parts = explode(',', $string);
         return $parts;
     }
-
 }

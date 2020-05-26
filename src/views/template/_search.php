@@ -1,16 +1,16 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\email
+ * @package    open20\amos\email
  * @category   CategoryName
  */
 
-use lispa\amos\core\helpers\Html;
-use lispa\amos\emailmanager\AmosEmail;
+use open20\amos\core\helpers\Html;
+use open20\amos\emailmanager\AmosEmail;
 use yii\widgets\ActiveForm;
 
 $this->registerJs("

@@ -1,22 +1,23 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\email
+ * @package    open20\amos\email
  * @category   CategoryName
  */
 
-namespace lispa\amos\emailmanager\base;
+namespace open20\amos\emailmanager\base;
 
-use lispa\amos\emailmanager\interfaces\ManagerInterface;
-use lispa\amos\emailmanager\interfaces\TransportInterface;
-use lispa\amos\emailmanager\models\EmailSpool;
-use lispa\amos\emailmanager\models\EmailTemplate;
-use lispa\amos\emailmanager\models\File;
-use lispa\amos\emailmanager\transports\YiiMailer;
+use open20\amos\emailmanager\interfaces\ManagerInterface;
+use open20\amos\emailmanager\interfaces\TransportInterface;
+use open20\amos\emailmanager\models\EmailSpool;
+use open20\amos\emailmanager\models\EmailTemplate;
+use open20\amos\emailmanager\models\File;
+use open20\amos\emailmanager\transports\YiiMailer;
+use Mustache_Engine;
 use Yii;
 use yii\base\Exception;
 use yii\helpers\FileHelper;
@@ -24,7 +25,8 @@ use yii\helpers\ArrayHelper;
 use yii\log\Logger;
 
 
-class AmosEmailManager implements ManagerInterface{
+class AmosEmailManager implements ManagerInterface
+{
 
     const PENDING = 'pending';
     const PROCESSING = 'processing';
@@ -61,23 +63,25 @@ class AmosEmailManager implements ManagerInterface{
     private $engine;
 
 
-    public function __construct() {
+    public function __construct()
+    {
 
         $this->transports[$this->defaultTransport] = new YiiMailer();
-        $options=[
-            'charset'=>\Yii::$app->charset,
-            'entity_flags'=>ENT_QUOTES | ENT_SUBSTITUTE,
-            'strict_callables'=>true
+        $options = [
+            'charset' => \Yii::$app->charset,
+            'entity_flags' => ENT_QUOTES | ENT_SUBSTITUTE,
+            'strict_callables' => true
         ];
 
-        $this->engine=new \Mustache_Engine($options);
+        $this->engine = new Mustache_Engine($options);
     }
 
     /**
      *
      * @return type
      */
-    public function getDefaultLayout() {
+    public function getDefaultLayout()
+    {
         return $this->defaultLayout;
     }
 
@@ -85,15 +89,17 @@ class AmosEmailManager implements ManagerInterface{
      *
      * @return type
      */
-    public function getDefaultTemplate() {
-       return $this->defaultTemplate;
+    public function getDefaultTemplate()
+    {
+        return $this->defaultTemplate;
     }
 
     /**
      *
      * @return type
      */
-    public function getTemplatePath() {
+    public function getTemplatePath()
+    {
         return $this->templatePath;
     }
 
@@ -101,7 +107,8 @@ class AmosEmailManager implements ManagerInterface{
      *
      * @return type
      */
-    public function getTemplateType() {
+    public function getTemplateType()
+    {
         return $this->templateType;
     }
 
@@ -109,7 +116,8 @@ class AmosEmailManager implements ManagerInterface{
      *
      * @param type $layout
      */
-    public function setDefaultLayout($layout) {
+    public function setDefaultLayout($layout)
+    {
         $this->defaultLayout = $layout;
     }
 
@@ -117,7 +125,8 @@ class AmosEmailManager implements ManagerInterface{
      *
      * @param type $tamplate
      */
-    public function setDefaultTemplate($tamplate) {
+    public function setDefaultTemplate($tamplate)
+    {
         $this->defaultTemplate = $tamplate;
     }
 
@@ -125,7 +134,8 @@ class AmosEmailManager implements ManagerInterface{
      *
      * @param type $path
      */
-    public function setTemplatePath($path) {
+    public function setTemplatePath($path)
+    {
         $this->templatePath = $path;
     }
 
@@ -133,7 +143,8 @@ class AmosEmailManager implements ManagerInterface{
      *
      * @param type $templateType
      */
-    public function setTemplateType($templateType) {
+    public function setTemplateType($templateType)
+    {
         $this->templateType = $templateType;
     }
 
@@ -145,16 +156,17 @@ class AmosEmailManager implements ManagerInterface{
      * @param type $layout
      * @return type
      */
-    public function buildTemplateMessage($template, $viewParams = array(), $layout = null) {
-        if ($layout === null)
-        {
+    public function buildTemplateMessage($template, $viewParams = array(), $layout = null)
+    {
+        if ($layout === null) {
             $layout = $this->defaultTemplate;
         }
         $method = 'buildTemplateMessage_' . $this->templateType;
-        if (!method_exists($this, $method))
-        {
+        if (!method_exists($this, $method)) {
             $this->templateType = 'php';
         }
+
+
         return call_user_func_array(array($this, $method), array($template, $viewParams, $layout));
     }
 
@@ -164,16 +176,17 @@ class AmosEmailManager implements ManagerInterface{
      * @param string $layout
      * @return array
      */
-    private function buildTemplateMessage_php($template, $viewParams = array(), $layout = null) {
+    private function buildTemplateMessage_php($template, $viewParams = array(), $layout = null)
+    {
         $message = array();
-        try{
+        try {
             $controller = Yii::$app->controller;
             foreach ($this->templateFields as $field) {
                 $viewParams['contents'] = $controller->renderPartial($this->templatePath . DIRECTORY_SEPARATOR . $template . DIRECTORY_SEPARATOR . $field, $viewParams);
                 if (!$layout) {
                     $viewParams[$field] = $message[$field] = $viewParams['contents'];
                 } else {
-                    $viewParams[$field] = $message[$field] = $controller->renderPartial($this->templatePath  .DIRECTORY_SEPARATOR . $layout . DIRECTORY_SEPARATOR . $field, $viewParams);
+                    $viewParams[$field] = $message[$field] = $controller->renderPartial($this->templatePath . DIRECTORY_SEPARATOR . $layout . DIRECTORY_SEPARATOR . $field, $viewParams);
                 }
                 unset($viewParams['contents']);
             }
@@ -191,7 +204,8 @@ class AmosEmailManager implements ManagerInterface{
      * @return type
      * @throws Exception
      */
-    private function buildTemplateMessage_db($template, $viewParams = array(), $layout = null) {
+    private function buildTemplateMessage_db($template, $viewParams = array(), $layout = null)
+    {
         $message = array();
 
         try {
@@ -241,12 +255,12 @@ class AmosEmailManager implements ManagerInterface{
      * @param array $bcc
      * @return bool
      */
-    public function queue($from, $to, $subject, $text,array $files = [], array $bcc = [], $params = [],$priority = 0)
+    public function queue($from, $to, $subject, $text, array $files = [], array $bcc = [], $params = [], $priority = 0)
     {
         $retValue = false;
 
-        try{
-            $retValue = $this->saveQueue($from, $to, $subject, $text,$files,$bcc, $params,$priority ,self::PENDING,$this->defaultTemplate);
+        try {
+            $retValue = $this->saveQueue($from, $to, $subject, $text, $files, $bcc, $params, $priority, self::PENDING, $this->defaultTemplate);
         } catch (Exception $bex) {
             Yii::getLogger()->log($bex->getMessage(), Logger::LEVEL_ERROR);
         }
@@ -266,26 +280,29 @@ class AmosEmailManager implements ManagerInterface{
      * @param string $text
      * @param array $files
      * @param array|string $bcc
+     * @param array|string $cc
+     * @param array|string $replyTo
      * @return bool
      */
-    public function send($from, $to, $subject, $text, array $files = [], array $bcc = [], $params = [], $save_in_queue = true)
+    public function send($from, $to, $subject, $text, array $files = [], array $bcc = [], $params = [], $save_in_queue = true, $cc = [], $replyTo = [])
     {
         $retValue = false;
-        try{
+        try {
 
             $files = $files === null ? [] : $files;
             $viewParams = ArrayHelper::merge(array(
                 'subject' => $subject,
                 'heading' => '',
                 'message' => $text,
-            ),$params);
+            ), $params);
             $message = $this->buildTemplateMessage($this->defaultTemplate, $viewParams, $this->defaultLayout);
-            $retValue = $this->transports[$this->defaultTransport]->send($from, $to, $message['subject'], $message['message'], $this->loadFiles($files), $bcc);
+            
+            $retValue = $this->transports[$this->defaultTransport]->send($from, $to, $message['subject'], $message['message'], $this->loadFiles($files), $bcc,  $cc, $replyTo);
 
             if ($save_in_queue) {
                 $this->saveQueue($from, $to, $subject, $text, $files, $bcc, $params, 0, ($retValue ? self::EMAILED : self::ERROR), $this->defaultTemplate);
             }
-        }catch (Exception $bex) {
+        } catch (Exception $bex) {
             Yii::getLogger()->log($bex->getMessage(), Logger::LEVEL_ERROR);
         }
         return $retValue;
@@ -303,10 +320,11 @@ class AmosEmailManager implements ManagerInterface{
      * @param integer $priority
      *
      */
-    private function saveQueue($from, $to, $subject, $text,array $files = [], array $bcc = [], $params = [],$priority = 0, $status = self::PENDING, $template){
+    private function saveQueue($from, $to, $subject, $text, array $files = [], array $bcc = [], $params = [], $priority = 0, $status = self::PENDING, $template)
+    {
         $retValue = false;
 
-        try{
+        try {
             $model = new EmailSpool();
             $model->from_address = $from;
             $model->to_address = $to;
@@ -318,9 +336,9 @@ class AmosEmailManager implements ManagerInterface{
             $model->status = $status;
             $model->model_name = '';
             $model->files = $this->loadFiles($files);
-            $model->bcc = $bcc;
+            $model->bcc = (empty($bcc) ? null : $bcc);
             $model->viewParams = $params;
-            if($status == self::EMAILED){
+            if ($status == self::EMAILED) {
                 $model->sent = time();
             }
 
@@ -336,12 +354,13 @@ class AmosEmailManager implements ManagerInterface{
      * @param int $limit
      * @return int
      */
-    public function spool($limit = 1000){
+    public function spool($limit = 1000)
+    {
         $done = 0;
-        try{
+        try {
             // find all the spooled emails
             $emailSpools = EmailSpool::find()->where(array(
-                'status' => self::PENDING))->orderBy(['priority'=>SORT_DESC,'created_at' => SORT_ASC])->limit($limit)->all();
+                'status' => self::PENDING))->orderBy(['priority' => SORT_DESC, 'created_at' => SORT_ASC])->limit($limit)->all();
             foreach ($emailSpools as $emailSpool) {
 
                 // update status to processing
@@ -352,11 +371,11 @@ class AmosEmailManager implements ManagerInterface{
                     'subject' => $emailSpool->subject,
                     'heading' => '',
                     'message' => $emailSpool->message,
-                ),$emailSpool->viewParams);
+                ), $emailSpool->viewParams);
                 $message = $this->buildTemplateMessage($emailSpool->template, $viewParams, $this->defaultLayout);
                 // send the email
-                $sent = $this->transports[$this->defaultTransport] ->send($emailSpool->from_address, $emailSpool->to_address,
-                        $message['subject'], $message['message'], $emailSpool->files, $emailSpool->bcc);
+                $sent = $this->transports[$this->defaultTransport]->send($emailSpool->from_address, $emailSpool->to_address,
+                    $message['subject'], $message['message'], $emailSpool->files, $emailSpool->bcc);
 
                 // update status and save
                 $emailSpool->status = $sent ? self::EMAILED : self::ERROR;
@@ -364,7 +383,7 @@ class AmosEmailManager implements ManagerInterface{
                 $emailSpool->save(false);
                 $done++;
             }
-        }catch (Exception $bex) {
+        } catch (Exception $bex) {
             Yii::getLogger()->log($bex->getMessage(), Logger::LEVEL_ERROR);
         }
         return $done;
@@ -373,23 +392,20 @@ class AmosEmailManager implements ManagerInterface{
     /**
      *
      * @param array $files
-     * @return \lispa\amos\emailmanager\base\File
+     * @return \open20\amos\emailmanager\base\File
      */
-    private function loadFiles(array $files){
+    private function loadFiles(array $files)
+    {
         $loadedFiles = [];
-        try
-        {
-            foreach($files as $filepath)
-            {
+        try {
+            foreach ($files as $key => $filepath) {
                 $file = new File();
                 $file->content = file_get_contents($filepath);
-                $file->name = pathinfo($filepath, PATHINFO_FILENAME) . "." . pathinfo($filepath, PATHINFO_EXTENSION);
+                $file->name = preg_match('/[^\\\\]*\.(\w+)$/i', $key) ? $key : pathinfo($filepath, PATHINFO_FILENAME) . "." . pathinfo($filepath, PATHINFO_EXTENSION);
                 $file->type = FileHelper::getMimeType($filepath); //pathinfo($filepath, PATHINFO_EXTENSION); 
                 $loadedFiles[] = $file;
             }
-        }
-        catch (Exception $exc)
-        {
+        } catch (Exception $exc) {
             Yii::getLogger()->log($exc->getMessage(), Logger::LEVEL_ERROR);
         }
         return $loadedFiles;
