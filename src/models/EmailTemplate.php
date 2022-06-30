@@ -14,6 +14,7 @@ namespace open20\amos\emailmanager\models;
 use open20\amos\emailmanager\AmosEmail;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use Yii;
 
 class EmailTemplate extends ActiveRecord
 {
@@ -24,6 +25,20 @@ class EmailTemplate extends ActiveRecord
     public static function tableName()
     {
         return 'email_template';
+    }
+
+    /**
+     * @return mixed|\yii\db\Connection
+     */
+    public static function getDb()
+    {
+
+        if(isset(\Yii::$app->params['amosDb'])) {
+            $database = \Yii::$app->params['amosDb'];
+            return \Yii::$app->get($database);
+        }
+
+        return Yii::$app->getDb();
     }
 
     /**

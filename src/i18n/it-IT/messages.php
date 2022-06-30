@@ -42,4 +42,8 @@ return [
     'To address' => 'A',
     'Transport' => 'Trasporto',
     'Updated At' => 'Aggiornato il',
+    '#notsend' => 'Non inviato',
+    "#beforeActionSubtitleSectionGuest" => "Per partecipare alla creazione di nuove notizie, {ctaLoginRegister}",
+    "#beforeActionCtaLoginRegister" => "accedi o registrati alla piattaforma",
+    "#beforeActionSubtitleSectionLogged" => ""
 ];

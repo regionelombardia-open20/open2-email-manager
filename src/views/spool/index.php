@@ -21,6 +21,13 @@ $this->title = AmosEmail::t('amosemail', 'Email Spools');
 $this->params['breadcrumbs'][] = ['label' => AmosEmail::t('amosemail', 'Email Manager'), 'url' => ['/email']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<style>
+.email-spool-index .table.table-hover.kv-grid-table{
+    display: block;
+    overflow: auto;
+}
+</style>
+
 <div class="email-spool-index">
     <?php echo $this->render('_search', ['model' => $model]); ?>
     <?php echo DataProviderView::widget([

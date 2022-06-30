@@ -77,13 +77,20 @@ $this->params['breadcrumbs'][] = $this->title;
                             <dd><?= $model->subject; ?></dd>
                         </dl>
                         <dl>
+                            <dt><?= $model->getAttributeLabel('sent'); ?></dt>
+                            <?php if (is_null($model->sent)) {?>
+                                <dd><?= AmosEmail::t('amosemail', '#notsend'); ?></dd>
+                            <?php } else {?>
+                                <dd><?= date("d-M-Y H:i:s",  $model->sent); ?></dd>
+                            <?php }?>
+                        </dl>
+                        <dl>
                             <dt><?= $model->getAttributeLabel('message'); ?></dt>
                             <dd class="mail_message_info"><p><?= $model->message; ?></p></dd>
                         </dl>
-                        <dl>
-                            <dt><?= $model->getAttributeLabel('sent date'); ?></dt>
-                            <dd><?= date("d-M-Y H:i:s", $model->sent); ?></dd>
-                        </dl>
+
+
+
                     </section>
                 </div>
             </div>

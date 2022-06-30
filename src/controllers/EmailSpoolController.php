@@ -17,6 +17,7 @@ use open20\amos\core\icons\AmosIcons;
 use open20\amos\emailmanager\AmosEmail;
 use open20\amos\emailmanager\models\EmailSpool;
 use open20\amos\emailmanager\models\search\EmailSpoolSearch;
+use open20\amos\admin\AmosAdmin;
 use Yii;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
@@ -84,6 +85,95 @@ class EmailSpoolController extends CrudController
         return $behaviors;
     }
 
+    public function beforeAction($action)
+    {
+        if (\Yii::$app->user->isGuest) {
+            $titleSection = AmosEmail::t('amosemail', 'Email Manager');
+            $urlLinkAll   = '';
+
+            $ctaLoginRegister = Html::a(
+                AmosEmail::t('amosemail', '#beforeActionCtaLoginRegister'),
+                isset(\Yii::$app->params['linkConfigurations']['loginLinkCommon']) ? \Yii::$app->params['linkConfigurations']['loginLinkCommon']
+                    : \Yii::$app->params['platform']['backendUrl'] . '/' . AmosAdmin::getModuleName() . '/security/login',
+                [
+                    'title' => AmosEmail::t('amosemail',
+                        'Clicca per accedere o registrarti alla piattaforma {platformName}',
+                        ['platformName' => \Yii::$app->name]
+                    )
+                ]
+            );
+            $subTitleSection  = Html::tag(
+                'p',
+                AmosEmail::t('amosemail',
+                    '#beforeActionSubtitleSectionGuest',
+                    ['ctaLoginRegister' => $ctaLoginRegister]
+                )
+            );
+        } else {
+            $titleSection = AmosEmail::t('amosemail', 'Coda Email');
+            // $labelLinkAll = AmosEmail::t('amosemail', 'Template Email');
+            // $urlLinkAll   = AmosEmail::t('amosemail', '/email/template');
+            // $titleLinkAll = AmosEmail::t('amosemail', 'Visualizza la coda delle email');
+
+            $labelLinkAll = AmosEmail::t('amosemail', '');
+            $urlLinkAll   = AmosEmail::t('amosemail', '');
+            $titleLinkAll = AmosEmail::t('amosemail', '');
+
+            $subTitleSection = Html::tag('p', AmosEmail::t('amosemail', '#beforeActionSubtitleSectionLogged'));
+        }
+
+        $labelCreate = AmosEmail::t('amosemail', '');
+        $titleCreate = AmosEmail::t('amosemail', '');
+        $labelManage = AmosEmail::t('amosemail', '');
+        $titleManage = AmosEmail::t('amosemail', '');
+        $urlCreate   = AmosEmail::t('amosemail', '');
+        $urlManage   = null;
+
+        $this->view->params = [
+            'isGuest' => \Yii::$app->user->isGuest,
+            'modelLabel' => 'emailmanager',
+            'titleSection' => $titleSection,
+            'subTitleSection' => $subTitleSection,
+            'urlLinkAll' => $urlLinkAll,
+            'labelLinkAll' => $labelLinkAll,
+            'titleLinkAll' => $titleLinkAll,
+            'hideCreate' => true,
+            'labelCreate' => $labelCreate,
+            'titleCreate' => $titleCreate,
+            'labelManage' => $labelManage,
+            'titleManage' => $titleManage,
+            'urlCreate' => $urlCreate,
+            'urlManage' => $urlManage,
+            'hideManage' => true
+        ];
+
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
+
+        // other custom code here
+
+        return true;
+    }
+
+    /**
+     *
+     * @return array
+     */
+    public static function getManageLinks()
+    {
+        $links[] = [];
+
+        if (\Yii::$app->user->can(\open20\amos\emailmanager\widgets\icons\WidgetIconTemplate::class)) {
+            $links[] = [
+                'title' => AmosEmail::t('amosemail', 'Gestisci template email'),
+                'label' => AmosEmail::t('amosemail', 'Template email'),
+                'url' => '/email/template',
+            ];
+        }
+        return $links;
+    }
+
     /**
      * Lists all EmailSpool models.
      * @return mixed
@@ -91,6 +181,7 @@ class EmailSpoolController extends CrudController
     public function actionIndex($layout = null)
     {
         $this->setUpLayout('list');
+        $this->view->params['containerFullWidth'] = true;
 
         Url::remember();
         $this->setDataProvider($this->getModelSearch()->search(Yii::$app->request->getQueryParams()));

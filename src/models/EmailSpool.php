@@ -33,6 +33,20 @@ class EmailSpool extends ActiveRecord
     }
 
     /**
+     * @return mixed|\yii\db\Connection
+     */
+    public static function getDb()
+    {
+
+        if(isset(\Yii::$app->params['amosDb'])) {
+            $database = \Yii::$app->params['amosDb'];
+            return \Yii::$app->get($database);
+        }
+
+        return \Yii::$app->getDb();
+    }
+
+    /**
      * @inheritdoc
      */
     public function rules()
