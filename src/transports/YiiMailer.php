@@ -52,13 +52,13 @@ class YiiMailer extends Component implements TransportInterface
                 try {
                     $ret = $message->send();
                 } catch (Exception $ex) {
-                    Yii::getLogger()->log($ex->getMessage(), Logger::LEVEL_ERROR);
+                    Yii::getLogger()->log($ex->getTraceAsString(), Logger::LEVEL_ERROR);
                 }
 
                 $mailer->getTransport()->stop();
             }
         } catch (Exception $bex) {
-            Yii::getLogger()->log($bex->getMessage(), Logger::LEVEL_ERROR);
+            Yii::getLogger()->log($bex->getTraceAsString(), Logger::LEVEL_ERROR);
         }
         return $ret;
     }

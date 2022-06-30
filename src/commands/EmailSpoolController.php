@@ -30,7 +30,7 @@ class EmailSpoolController extends Controller
                 $emailManager->spool($spoolLimit);
             }
         } catch (Exception $bex) {
-            Yii::getLogger()->log($bex->getMessage(), Logger::LEVEL_ERROR);
+            Yii::getLogger()->log($bex->getTraceAsString(), Logger::LEVEL_ERROR);
         }
     }
 
@@ -54,7 +54,7 @@ class EmailSpoolController extends Controller
                 }
             }
         } catch (Exception $bex) {
-            Yii::getLogger()->log($bex->getMessage(), Logger::LEVEL_ERROR);
+            Yii::getLogger()->log($bex->getTraceAsString(), Logger::LEVEL_ERROR);
         }
     }
 

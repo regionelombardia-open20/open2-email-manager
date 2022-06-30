@@ -147,7 +147,7 @@ class AmosEmail extends AmosModule implements BootstrapInterface
                 $retValue = $this->emailManager->queue($from, $to, $subject, $text, $files, $bcc, $params, $priority);
             }
         } catch (Exception $ex) {
-            Yii::getLogger()->log($ex->getMessage(), Logger::LEVEL_ERROR);
+            Yii::getLogger()->log($ex->getTraceAsString(), Logger::LEVEL_ERROR);
         }
         return $retValue;
     }
@@ -178,7 +178,7 @@ class AmosEmail extends AmosModule implements BootstrapInterface
             }
         } catch (Exception $ex)
         {
-            Yii::getLogger()->log($ex->getMessage(), Logger::LEVEL_ERROR);
+            Yii::getLogger()->log($ex->getTraceAsString(), Logger::LEVEL_ERROR);
         }
         return $retValue;
     }
@@ -196,7 +196,7 @@ class AmosEmail extends AmosModule implements BootstrapInterface
                 $retValue = $this->emailManager->spool($loopLimit);
             }
         } catch (Exception $ex) {
-            Yii::getLogger()->log($ex->getMessage(), Logger::LEVEL_ERROR);
+            Yii::getLogger()->log($ex->getTraceAsString(), Logger::LEVEL_ERROR);
         }
         return $retValue;
     }

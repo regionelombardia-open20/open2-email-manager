@@ -191,7 +191,7 @@ class AmosEmailManager implements ManagerInterface
                 unset($viewParams['contents']);
             }
         } catch (Exception $bex) {
-            Yii::getLogger()->log($bex->getMessage(), Logger::LEVEL_ERROR);
+            Yii::getLogger()->log($bex->getTraceAsString(), Logger::LEVEL_ERROR);
         }
         return $message;
     }
@@ -233,7 +233,7 @@ class AmosEmailManager implements ManagerInterface
                 }
             }
         } catch (Exception $bex) {
-            Yii::getLogger()->log($bex->getMessage(), Logger::LEVEL_ERROR);
+            Yii::getLogger()->log($bex->getTraceAsString(), Logger::LEVEL_ERROR);
         }
         return $message;
     }
@@ -262,7 +262,7 @@ class AmosEmailManager implements ManagerInterface
         try {
             $retValue = $this->saveQueue($from, $to, $subject, $text, $files, $bcc, $params, $priority, self::PENDING, $this->defaultTemplate);
         } catch (Exception $bex) {
-            Yii::getLogger()->log($bex->getMessage(), Logger::LEVEL_ERROR);
+            Yii::getLogger()->log($bex->getTraceAsString(), Logger::LEVEL_ERROR);
         }
         return $retValue;
     }
@@ -303,7 +303,7 @@ class AmosEmailManager implements ManagerInterface
                 $this->saveQueue($from, $to, $subject, $text, $files, $bcc, $params, 0, ($retValue ? self::EMAILED : self::ERROR), $this->defaultTemplate);
             }
         } catch (Exception $bex) {
-            Yii::getLogger()->log($bex->getMessage(), Logger::LEVEL_ERROR);
+            Yii::getLogger()->log($bex->getTraceAsString(), Logger::LEVEL_ERROR);
         }
         return $retValue;
     }
@@ -320,34 +320,38 @@ class AmosEmailManager implements ManagerInterface
      * @param integer $priority
      *
      */
-    private function saveQueue($from, $to, $subject, $text, array $files = [], array $bcc = [], $params = [], $priority = 0, $status = self::PENDING, $template)
+    private function saveQueue($from, $to, $subject, $text, array $files = [], array $bcc = [], $params = [],
+                               $priority = 0, $status = self::PENDING, $template)
     {
         $retValue = false;
 
         try {
-            $model = new EmailSpool();
+            $model               = new EmailSpool();
             $model->from_address = $from;
-            $model->to_address = $to;
-            $model->subject = $subject;
-            $model->message = $text;
-            $model->priority = $priority;
-            $model->transport = '';
-            $model->template = $template;
-            $model->status = $status;
-            $model->model_name = '';
-            $model->files = $this->loadFiles($files);
-            $model->bcc = (empty($bcc) ? null : $bcc);
-            $model->viewParams = $params;
+            $model->to_address   = $to;
+            $model->subject      = $subject;
+            $model->message      = $text;
+            $model->priority     = $priority;
+            $model->transport    = '';
+            $model->template     = $template;
+            $model->status       = $status;
+            $model->model_name   = '';
+            $model->files        = $this->loadFiles($files);
+            $model->bcc          = (empty($bcc) ? null : $bcc);
+            //Not work with closure the serialize - disabled
+            //$model->viewParams   = $params;
+
             if ($status == self::EMAILED) {
                 $model->sent = time();
             }
 
             $retValue = $model->save(false);
         } catch (\Exception $bex) {
-            Yii::getLogger()->log($bex->getMessage(), Logger::LEVEL_ERROR);
+            Yii::getLogger()->log($bex->getTraceAsString(), Logger::LEVEL_ERROR);
         }
         return $retValue;
     }
+
 
     /**
      *
@@ -384,7 +388,7 @@ class AmosEmailManager implements ManagerInterface
                 $done++;
             }
         } catch (Exception $bex) {
-            Yii::getLogger()->log($bex->getMessage(), Logger::LEVEL_ERROR);
+            Yii::getLogger()->log($bex->getTraceAsString(), Logger::LEVEL_ERROR);
         }
         return $done;
     }
@@ -406,7 +410,7 @@ class AmosEmailManager implements ManagerInterface
                 $loadedFiles[] = $file;
             }
         } catch (Exception $exc) {
-            Yii::getLogger()->log($exc->getMessage(), Logger::LEVEL_ERROR);
+            Yii::getLogger()->log($exc->getTraceAsString(), Logger::LEVEL_ERROR);
         }
         return $loadedFiles;
     }

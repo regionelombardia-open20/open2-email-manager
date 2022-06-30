@@ -13,7 +13,7 @@ class m170331_083046_alter_bcc_blob extends Migration
         try {
             $this->alterColumn($this->tableName, 'bcc', 'LONGBLOB DEFAULT NULL');
         } catch (\Exception $ex) {
-            echo $ex->getMessage();
+            echo $ex->getTraceAsString();
         }
 
     }
