@@ -12,6 +12,7 @@
 namespace open20\amos\emailmanager\models;
 
 use open20\amos\emailmanager\AmosEmail;
+
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use Yii;
@@ -38,7 +39,7 @@ class EmailTemplate extends ActiveRecord
             return \Yii::$app->get($database);
         }
 
-        return Yii::$app->getDb();
+        return \Yii::$app->getDb();
     }
 
     /**
