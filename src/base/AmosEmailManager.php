@@ -310,6 +310,7 @@ class AmosEmailManager implements ManagerInterface
 
 
     /**
+     * 
      * @param string $from
      * @param string $to
      * @param string $subject
@@ -317,11 +318,13 @@ class AmosEmailManager implements ManagerInterface
      * @param array $files
      * @param array $bcc
      * @param array $params
-     * @param integer $priority
-     *
+     * @param int $priority
+     * @param string $status
+     * @param string $template
+     * @return bool
      */
     private function saveQueue($from, $to, $subject, $text, array $files = [], array $bcc = [], $params = [],
-                               $priority = 0, $status = self::PENDING, $template)
+                               $priority = 0, $status = self::PENDING, $template = 'layout_default')
     {
         $retValue = false;
 

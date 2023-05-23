@@ -34,9 +34,9 @@ class EmailView extends \open20\amos\emailmanager\models\base\EmailView
         return isset($hints[$attribute]) ? $hints[$attribute] : null;
     }
 
-    public static function getEditFields()
+    public function getEditFields()
     {
-        $labels = self::attributeLabels();
+        $labels = $this->attributeLabels();
 
         return [
             [
